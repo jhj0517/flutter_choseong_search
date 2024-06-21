@@ -38,15 +38,15 @@ class ChoseongSearch {
     final List<int> choIndexes = _getChoIndexes(char: query);
     if (choIndexes.isEmpty) return target.contains(query);
 
-    for (int i in choIndexes) {
+    for (int i in choIndexes.reversed) {
       if (query[i] != getChoseong(char: target[i])) {
         return false;
       }
+      int next = (i == (query.length-1)) ? (query.length-1) : (i+1);
+      target = target.substring(0, i) + target.substring(next);
+      query = query.substring(0, i) + query.substring(next);
     }
-
-    String filteredTarget = choIndexes.map((i) => target.substring(i)).join();
-    String filteredQuery = choIndexes.map((i) => query.substring(i)).join();
-    return filteredTarget.contains(filteredQuery);
+    return target.contains(query);
   }
 
   /// 한글 문자 [char] 를 입력받아 초성을 추출합니다. 해당 인덱스에 초성이 아예 존재하지 않으면, 공백 " "을 추출합니다.
