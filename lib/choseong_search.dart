@@ -33,25 +33,19 @@ class ChoseongSearch {
       target = target.trim();
     }
 
-    if (query.length > target.length) {
-      return false;
-    }
+    if (query.length > target.length) return false;
 
     final List<int> choIndexes = _getChoIndexes(char: query);
-
     if (choIndexes.isEmpty) return target.contains(query);
 
     for (int i in choIndexes) {
-      String targetChar = target[i];
-      String targetCho = getChoseong(char: targetChar);
-      if (query[i] != targetCho) {
+      if (query[i] != getChoseong(char: target[i])) {
         return false;
       }
     }
 
     String filteredTarget = choIndexes.map((i) => target.substring(i)).join();
     String filteredQuery = choIndexes.map((i) => query.substring(i)).join();
-
     return filteredTarget.contains(filteredQuery);
   }
 
@@ -152,7 +146,7 @@ class ChoseongSearch {
         continue;
       }
 
-      bool isHangeul = c.codeUnitAt(0) >= hangeulStartUnicdoe && c.codeUnitAt(0) <= hangeulStartUnicdoe;
+      bool isHangeul = c.codeUnitAt(0) >= hangeulStartUnicdoe && c.codeUnitAt(0) <= hangeulEndUnicode;
       if (!isHangeul) {
         return false;
       }
