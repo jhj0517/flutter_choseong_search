@@ -1,6 +1,8 @@
 # Flutter Choseong Search
 한글 초성 검색 플러터 패키지 입니다.
 
+![example](https://github.com/jhj0517/flutter_choseong_search/blob/master/screenshots/example.gif)
+
 ## Installation
 `flutter pub add choseong_search` 를 터미널에 실행하시거나, `pubspec.yaml` 에 수동으로 패키지를 추가하세요.
 ```yaml
