@@ -1,7 +1,7 @@
 name: choseong_search
 description: "Korean Choseong Search in Flutter"
-version: 0.0.1
-homepage:
+version: 1.0.0
+homepage: https://github.com/jhj0517/flutter_choseong_search
 
 environment:
   sdk: '>=3.4.3 <4.0.0'
