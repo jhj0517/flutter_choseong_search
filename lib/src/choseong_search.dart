@@ -1,14 +1,16 @@
-abstract class ChoseongSearch {
-  static const int hangeulStartUnicdoe = 44032;
-  static const int hangeulEndUnicode = 55203;
+import 'package:flutter/material.dart';
 
-  static const List<String> choSeong = [
+abstract class ChoseongSearch {
+  static const int _hangeulStartUnicdoe = 44032;
+  static const int _hangeulEndUnicode = 55203;
+
+  static const List<String> _choSeong = [
     "ㄱ", "ㄲ", "ㄴ", "ㄷ", "ㄸ", "ㄹ", "ㅁ", "ㅂ", "ㅃ", "ㅅ", "ㅆ", "ㅇ", "ㅈ", "ㅉ", "ㅊ", "ㅋ", "ㅌ", "ㅍ", "ㅎ"
   ];
-  static const List<String> jungSeong = [
+  static const List<String> _jungSeong = [
     "ㅏ", "ㅐ", "ㅑ", "ㅒ", "ㅓ", "ㅔ", "ㅕ", "ㅖ", "ㅗ", "ㅘ", "ㅙ", "ㅚ", "ㅛ", "ㅜ", "ㅝ", "ㅞ", "ㅟ", "ㅠ", "ㅡ", "ㅢ", "ㅣ"
   ];
-  static const List<String> jongSeong = [
+  static const List<String> _jongSeong = [
     " ", "ㄱ", "ㄲ", "ㄳ", "ㄴ", "ㄵ", "ㄶ", "ㄷ", "ㄹ", "ㄺ", "ㄻ", "ㄼ", "ㄽ", "ㄾ", "ㄿ", "ㅀ", "ㅁ", "ㅂ", "ㅄ", "ㅅ", "ㅆ", "ㅇ", "ㅈ", "ㅊ", "ㅋ", "ㅌ", "ㅍ", "ㅎ"
   ];
 
@@ -21,7 +23,7 @@ abstract class ChoseongSearch {
   /// [target] `query` 와 비교할 대상입니다.
   ///
   /// [enableTrim] `query` 와 `target` 을 비교 시 공백을 제외하고 비교할 지를 정합니다. 기본값은 true 입니다.
-  static bool search({
+  static bool compare({
     required String query,
     required String target,
     bool enableTrim=true
@@ -40,9 +42,8 @@ abstract class ChoseongSearch {
       if (query[i] != getChoseong(char: target[i])) {
         return false;
       }
-      int next = (i == (query.length-1)) ? (query.length-1) : (i+1);
-      target = target.substring(0, i) + target.substring(next);
-      query = query.substring(0, i) + query.substring(next);
+      target = target.substring(0, i) + target.substring(i+1);
+      query = query.substring(0, i) + query.substring(i+1);
     }
     return target.contains(query);
   }
@@ -61,16 +62,16 @@ abstract class ChoseongSearch {
         continue;
       }
 
-      if (choSeong.contains(c)) {
+      if (_choSeong.contains(c)) {
         cho += c;
         continue;
-      } else if (jungSeong.contains(c) || jongSeong.contains(c)) {
+      } else if (_jungSeong.contains(c) || _jongSeong.contains(c)) {
         cho += " ";
         continue;
       }
 
-      int choIndex = (c.codeUnitAt(0) - hangeulStartUnicdoe) ~/ (jongSeong.length * jungSeong.length);
-      cho += choSeong[choIndex];
+      int choIndex = (c.codeUnitAt(0) - _hangeulStartUnicdoe) ~/ (_jongSeong.length * _jungSeong.length);
+      cho += _choSeong[choIndex];
     }
     return cho;
   }
@@ -89,16 +90,16 @@ abstract class ChoseongSearch {
         continue;
       }
 
-      if (jungSeong.contains(c)) {
+      if (_jungSeong.contains(c)) {
         jung += c;
         continue;
-      } else if (choSeong.contains(c) || jongSeong.contains(c)) {
+      } else if (_choSeong.contains(c) || _jongSeong.contains(c)) {
         jung += " ";
         continue;
       }
 
-      int joongIndex = (c.codeUnitAt(0) - hangeulStartUnicdoe) ~/ jongSeong.length % jungSeong.length;
-      jung += jungSeong[joongIndex];
+      int joongIndex = (c.codeUnitAt(0) - _hangeulStartUnicdoe) ~/ _jongSeong.length % _jungSeong.length;
+      jung += _jungSeong[joongIndex];
     }
     return jung;
   }
@@ -117,16 +118,16 @@ abstract class ChoseongSearch {
         continue;
       }
 
-      if (jongSeong.contains(c) && !choSeong.contains(c)) {
+      if (_jongSeong.contains(c) && !_choSeong.contains(c)) {
         jong += c;
         continue;
-      } else if (choSeong.contains(c) || jungSeong.contains(c)) {
+      } else if (_choSeong.contains(c) || _jungSeong.contains(c)) {
         jong += " ";
         continue;
       }
 
-      int jongIndex = (c.codeUnitAt(0) - hangeulStartUnicdoe) % jongSeong.length;
-      jong += jongSeong[jongIndex];
+      int jongIndex = (c.codeUnitAt(0) - _hangeulStartUnicdoe) % _jongSeong.length;
+      jong += _jongSeong[jongIndex];
     }
     return jong;
   }
@@ -140,11 +141,11 @@ abstract class ChoseongSearch {
     required String char
   }) {
     for (String c in char.split('')) {
-      if (choSeong.contains(c) || jungSeong.contains(c) || jongSeong.contains(c) || c == " ") {
+      if (_choSeong.contains(c) || _jungSeong.contains(c) || _jongSeong.contains(c) || c == " ") {
         continue;
       }
 
-      bool isHangeul = c.codeUnitAt(0) >= hangeulStartUnicdoe && c.codeUnitAt(0) <= hangeulEndUnicode;
+      bool isHangeul = c.codeUnitAt(0) >= _hangeulStartUnicdoe && c.codeUnitAt(0) <= _hangeulEndUnicode;
       if (!isHangeul) {
         return false;
       }
@@ -152,7 +153,7 @@ abstract class ChoseongSearch {
     return true;
   }
 
-  /// 입력받은 글자 [char] 로부터 초성의 인덱스를 추출하는 유틸리티용 함수입니다.
+  /// 입력받은 글자 [char] 로부터 초성의 인덱스를 추출하는 함수입니다.
   ///
   /// [char] 초성의 인덱스를 추출할 문자입니다.
   static List<int> _getChoIndexes({
@@ -160,7 +161,7 @@ abstract class ChoseongSearch {
   }) {
     List<int> choIndexes = [];
     for (int i = 0; i < char.length; i++) {
-      if (choSeong.contains(char[i])) {
+      if (_choSeong.contains(char[i])) {
         choIndexes.add(i);
       }
     }
