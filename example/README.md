@@ -1,16 +1,25 @@
-# example
+# Demo 
+데모 앱입니다.
 
-A new Flutter project.
+![example](https://github.com/jhj0517/flutter_choseong_search/blob/master/screenshots/example.gif)
 
-## Getting Started
+## Usage in Dart
+다음과 같은 예시로 패키지를 사용할 수 있습니다.
+```dart
+List<String> filterList(String query, List<String> fullList) {
+  List<String> filteredList = [];
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+  if (query.isEmpty) {
+    filteredList.addAll(fullList);
+  } else {
+    for (final item in fullList) {
+      // `item` 과 `query` 비교에 패키지 사용 
+      if (ChoseongSearch.compare(query: query, target: item)){
+        filteredList.add(item);
+      }
+    }
+  }
+  
+  return filteredList;
+}
+```
