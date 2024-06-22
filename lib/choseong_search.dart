@@ -1,3 +1,3 @@
 library choseong_search;
 
-export 'package:choseong_search/choseong_search.dart';
+export 'package:choseong_search/src/choseong_search.dart';
