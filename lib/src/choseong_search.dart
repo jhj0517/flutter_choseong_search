@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 
 abstract class ChoseongSearch {
   static const int _hangeulStartUnicdoe = 44032;
