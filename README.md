@@ -17,9 +17,9 @@ import 'package:choseong_search/choseong_search.dart';
 ```dart
 import 'package:choseong_search/choseong_search.dart';
 
-ChoseongSearch.search(query: "ㅇㄴㅎㅅㅇ", target: "안녕하세요") // returns true
-ChoseongSearch.search(query: "ㅇ녕하ㅅㅇ", target: "안녕하세요") // returns true
-ChoseongSearch.search(query: "ㅇ녕하ㅅ염", target: "안녕하세요") // returns false
+ChoseongSearch.compare(query: "ㅇㄴㅎㅅㅇ", target: "안녕하세요") // returns true
+ChoseongSearch.compare(query: "ㅇ녕하ㅅㅇ", target: "안녕하세요") // returns true
+ChoseongSearch.compare(query: "ㅇ녕하ㅅ염", target: "안녕하세요") // returns false
 ```
 검색어 `query` 와 검색 대상어 `target`을 비교해 `bool` 값을 리턴합니다.
 
