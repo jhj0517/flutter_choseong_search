@@ -4,7 +4,7 @@
 ![example](https://github.com/jhj0517/flutter_choseong_search/blob/master/screenshots/example.gif)
 
 ## Usage in Dart
-다음과 같은 예시로 패키지를 사용할 수 있습니다.
+다음 예시와 같이 쿼리와 함께 리스트를 필터링 할 수 있습니다.
 ```dart
 List<String> filterList(String query, List<String> fullList) {
   List<String> filteredList = [];
